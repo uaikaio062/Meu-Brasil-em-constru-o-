@@ -1,4 +1,4 @@
-name: Deploy para GitHub Pages
+name: Deploy to GitHub Pages
 on:
 push:
 branches:
@@ -13,13 +13,13 @@ build-and-deploy:
 runs-on: ubuntu-latest
 steps:
 - name: Checkout
-uses: actions/checkout@v4
+  uses: actions/checkout@v4
 - name: Setup Node.js
 uses: actions/setup-node@v4
 with:
-node-version: 20
+  node-version: 20
 - name: Build
-run: |
+  run: |
 npm install
 npm run build
 - name: Deploy to Pages
