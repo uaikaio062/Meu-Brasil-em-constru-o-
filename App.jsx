@@ -6,8 +6,35 @@ import { hasSupabase, supabase } from './supabase.js';
 mapboxgl.accessToken = 'pk.eyJ1IjoidWFpa2FpbzA2MiIsImEiOiJjbXdnanFjY2UwamlvMnpzZWFkM3FtN3p5In0.QmWtBhr2roWkS3uhs1wH1Q';
 
 const stateCenters = {
- AC:[-67.8249,-9.9754],AL:[-35.7353,-9.6658],AP:[-51.0694,0.0349],AM:[-60.0217,-3.119],BA:[-38.5014,-12.9714],CE:[-38.5433,-3.7172],DF:[-47.8828,-15.7939],ES:[-40.3128,-20.3155],GO:[-49.2648,-16.6869],MA:[-44.3068,-2.5307],MT:[-56.0974,-15.601],MS:[-54.6201,-20.4697],MG:[-43.9345,-19.9167],PA:[-48.4902,-1.4558],PB:[-34.845,-7.1195],PR:[-49.2733,-25.4284],PE:[-34.877,-8.0476],PI:[-42.8016,-5.0892],RJ:[-43.1729,-22.9068],RN:[-35.211,-5.7945],RS:[-51.2177,-30.0346],RO:[-63.9004,-8.7612],RR:[-60.6758,2.8235],SC:[-48.548,-27.5954],SP:[-46.6333,-23.5505],SE:[-37.0731,-10.9472],TO:[-48.3336,-10.184]
+  AC: [-67.8076, -9.9749],
+  AL: [-35.7396, -9.6656],
+  AP: [-51.0664, 0.0358],
+  AM: [-60.0250, -3.1190],
+  BA: [-38.5023, -12.9777],
+  CE: [-38.5266, -3.7319],
+  DF: [-47.9297, -15.7801],
+  ES: [-40.3089, -20.3155],
+  GO: [-49.2558, -16.6868],
+  MA: [-44.3032, -2.5300],
+  MT: [-56.0949, -15.6014],
+  MS: [-54.6136, -20.4428],
+  MG: [-43.9378, -19.9208],
+  PA: [-48.4888, -1.4550],
+  PB: [-34.8819, -7.1153],
+  PR: [-49.2768, -25.4284],
+  PE: [-34.8811, -8.0543],
+  PI: [-42.7719, -5.0919],
+  RJ: [-43.1729, -22.9068],
+  RN: [-35.2094, -5.7942],
+  RS: [-51.2177, -30.0346],
+  RO: [-63.9039, -8.7619],
+  RR: [-60.6737, 2.8197],
+  SC: [-48.5482, -27.5954],
+  SP: [-46.6333, -23.5505],
+  SE: [-37.0718, -10.9095],
+  TO: [-48.3303, -10.2117]
 };
+
 
 const stateNames={AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
 const states=Object.keys(stateNames).sort();
