@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, useEffect, useMemo, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { House, Plus, Search, Trophy, Users, MapPin, Instagram, X, Hammer, ChevronRight, Sparkles, Cloud, HardDrive } from 'lucide-react';
 import { hasSupabase, supabase } from './supabase.js';
@@ -35,7 +35,6 @@ const stateCenters = {
   TO: [-48.3303, -10.2117]
 };
 
-
 const stateNames={AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
 const states=Object.keys(stateNames).sort();
 const cleanInstagram=v=>{const s=v.trim().replace(/^@+/,'').replace(/\s/g,'');return s?'@'+s:''};
@@ -69,11 +68,13 @@ export default function App(){
   if (map.current) return;
   map.current = new mapboxgl.Map({
    container: mapContainer.current,
-   style: 'mapbox://styles/mapbox/streets-v12',
+   style: 'mapbox://styles/mapbox/dark-v11',
    center: [-52, -14.5],
-   zoom: 3.5,
+   zoom: 4,
    minZoom: 3,
-   maxZoom: 12
+   maxZoom: 15,
+   pitch: 60,
+   bearing: -20
   });
   map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
  }, []);
@@ -87,9 +88,9 @@ export default function App(){
   shown.forEach(p => {
    const el = document.createElement('div');
    el.className = 'house-pin';
-   el.innerHTML = '<div class="pin-house" style="font-size: 24px; cursor: pointer;">🏡</div>';
+   el.innerHTML = '<div class="pin-house" style="font-size: 28px; cursor: pointer; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.8));">🏡</div>';
 
-   const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+   const popup = new mapboxgl.Popup({ offset: 35 }).setHTML(
     `<b>🏡 ${p.name}</b><br/>${p.instagram}<br/>${p.city} – ${p.state}<br/>Nível ${p.level||1} · ${p.points} pontos`
    );
 
@@ -136,8 +137,7 @@ export default function App(){
    <div ref={mapContainer} className="map" style={{ width: '100%', height: '100%', minHeight: '400px' }} />
    <div className="legend">🏡 Cada marcador representa uma casa</div>
   </div>
-  <p className="note">Localização aproximada na capital do estado. Não pedimos endereço residencial.</p></section>
-  <aside className="sidebar"><section className="side-card"><div className="section-head"><div><small>QUEM ESTÁ CONSTRUINDO</small><h3>Participantes</h3></div><b className="bubble">{people.length}</b></div>{loading?<p className="muted">Carregando...</p>:shown.length===0?<p className="muted">Nenhuma casa encontrada.</p>:shown.slice(0,9).map(p=><button className={'person '+(selected===p.id?'active':'')} key={p.id} onClick={()=>setSelected(p.id)}><span>🏡</span><label><b>{p.name}</b><small>{p.instagram} · {p.city}/{p.state}</small></label><em>N{p.level||1}</em></button>)}</section><section className="side-card"><div className="section-head"><div><small>DESTAQUES</small><h3><Trophy size={17}/> Ranking de pontos</h3></div></div>{ranking.map((p,i)=><div className="rank" key={p.id}><b>{i+1}</b><span>{p.name}<small>{p.city}/{p.state}</small></span><strong>{p.points} pts</strong></div>)}</section>{selected&&people.find(p=>p.id===selected)&&(()=>{const p=people.find(x=>x.id===selected);return <section className="side-card selected"><div className="selected-top"><span>🏡</span><button onClick={()=>setSelected(null)}><X size={15}/></button></div><h3>{p.name}</h3><p>{p.instagram} · {p.city}/{p.state}</p><div className="level-line"><span>Nível {p.level||1}</span><b>{p.points} pontos</b></div><div className="progress"><i style={{width:(p.points%100)+'%'}}/></div><button className="upgrade" disabled={p.points<50||p.level>=5} onClick={()=>upgrade(p)}><Hammer size={15}/> Melhorar casa · 50 pontos</button></section>})()}</aside></main>
+  <p className="note">Localização aproximada na capital do estado. Não pedimos endereço residencial.</p></section><aside className="sidebar"><section className="side-card"><div className="section-head"><div><small>QUEM ESTÁ CONSTRUINDO</small><h3>Participantes</h3></div><b className="bubble">{people.length}</b></div>{loading?<p className="muted">Carregando...</p>:shown.length===0?<p className="muted">Nenhuma casa encontrada.</p>:shown.slice(0,9).map(p=><button className={'person '+(selected===p.id?'active':'')} key={p.id} onClick={()=>setSelected(p.id)}><span>🏡</span><label><b>{p.name}</b><small>{p.instagram} · {p.city}/{p.state}</small></label><em>N{p.level||1}</em></button>)}</section><section className="side-card"><div className="section-head"><div><small>DESTAQUES</small><h3><Trophy size={17}/> Ranking de pontos</h3></div></div>{ranking.map((p,i)=><div className="rank" key={p.id}><b>{i+1}</b><span>{p.name}<small>{p.city}/{p.state}</small></span><strong>{p.points} pts</strong></div>)}</section>{selected&&people.find(p=>p.id===selected)&&(()=>{const p=people.find(x=>x.id===selected);return <section className="side-card selected"><div className="selected-top"><span>🏡</span><button onClick={()=>setSelected(null)}><X size={15}/></button></div><h3>{p.name}</h3><p>{p.instagram} · {p.city}/{p.state}</p><div className="level-line"><span>Nível {p.level||1}</span><b>{p.points} pontos</b></div><div className="progress"><i style={{width:(p.points%100)+'%'}}/></div><button className="upgrade" disabled={p.points<50||p.level>=5} onClick={()=>upgrade(p)}><Hammer size={15}/> Melhorar casa · 50 pontos</button></section>})()}</aside></main>
   <section className="how"><small>É SIMPLES ASSIM</small><h2>Seu lugar começa aqui.</h2><div className="steps"><article><b>01</b><h3>Faça seu cadastro</h3><p>Informe nome, Instagram, cidade e estado.</p></article><article><b>02</b><h3>Receba sua casa</h3><p>Sua construção aparece no mapa do Brasil.</p></article><article><b>03</b><h3>Construa mais</h3><p>Ganhe pontos e evolua sua casa.</p></article></div></section>
   <footer><span className="brand"><span className="logo"><House/></span><span><b>MEU BRASIL</b><small>EM CONSTRUÇÃO</small></span></span><span>Feito de pessoas, construído tijolo por tijolo. 🇧🇷</span><small>{hasSupabase?<><Cloud size={13}/> Banco online</>:<><HardDrive size={13}/> Dados locais nesta demonstração</>}</small></footer>
   {notice&&<div className="toast">{notice}<button onClick={()=>setNotice('')}><X size={14}/></button></div>}
